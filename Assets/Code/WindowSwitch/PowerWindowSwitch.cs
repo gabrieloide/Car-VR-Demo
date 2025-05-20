@@ -6,72 +6,72 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 public class PowerWindowSwitch : InteractableButton
 {
-    private bool _touchingSwitch = false;
     [SerializeField] private GameObject _window;
     [SerializeField] private float threshold = 45;
-    [SerializeField] private float windowSpeed = 1;
+    public Transform initialPosition; 
+    public Transform finalPosition; 
+    private float _windowSpeed;
 
-    private void Start()
-    {
-        if (_window == null)
-            throw new Exception("Window not assigned");
-
-        GetComponent<XRSimpleInteractable>().selectEntered.AddListener(OnEnterInteract);
-    }
 
     public override void OnEnterInteract(SelectEnterEventArgs selectEnterEventArgs)
     {
+        _audioSource.Play();
+        _windowSpeed = FindAnyObjectByType<WindowBlocker>().windowSpeed;
         if (FindAnyObjectByType<WindowBlocker>().isBlocked)
-            return;
-
-        _touchingSwitch = true;
-
-        var interactor = selectEnterEventArgs.interactorObject;
-
-        if (interactor is UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInputInteractor controllerInteractor)
         {
-            var controller = controllerInteractor.xrController;
-
-            if (controller != null)
-            {
-                Debug.Log("Controlador interactuando: " + controller.name);
-                var currentHand = controller.name.Contains("Left") ? XRNode.LeftHand : XRNode.RightHand;
-                //currentHand = controller.controllerNode;
-                StartCoroutine(ChangeWindowPosition(currentHand));
-            }
+            Debug.Log("Window is blocked");
+            return;
         }
 
-        Debug.Log(_touchingSwitch);
+        TouchingInteractable = true;
+
+        StartCoroutine(ChangeWindowPosition(selectEnterEventArgs.interactorObject.transform));
     }
 
-    public override void OnExitInteract(SelectEnterEventArgs selectEnterEventArgs)
+    public override void OnExitInteract(SelectExitEventArgs selectEnterEventArgs)
     {
-        _touchingSwitch = false;
-        Debug.Log(_touchingSwitch);
+        TouchingInteractable = false;
     }
 
-    private IEnumerator ChangeWindowPosition(XRNode currentHand)
-    {
-        float currentRotation = 0;
+    
+    
 
-        while (_touchingSwitch)
+    private IEnumerator ChangeWindowPosition(Transform controllerInteraction)
+    {
+        float initialControllerRotation = controllerInteraction.eulerAngles.x;
+        float activationThreshold = 15f; // Ángulo mínimo para activar movimiento
+        bool isMoving = false;
+
+        while (TouchingInteractable)
         {
-            var controllerInteraction = InputDevices.GetDeviceAtXRNode(currentHand);
+            // Calcular diferencia angular
+            float currentRotation = controllerInteraction.eulerAngles.x;
+            float delta = Mathf.DeltaAngle(initialControllerRotation, currentRotation);
 
-            if (controllerInteraction.TryGetFeatureValue(CommonUsages.deviceRotation, out Quaternion rotation))
+            // Determinar dirección
+            if (Mathf.Abs(delta) > activationThreshold)
             {
-                Debug.Log("Rotación del control derecho: " + rotation.eulerAngles);
-
-                float direction = currentRotation > threshold ? 1 :
-                    currentRotation < -threshold ? -1 : 0;
-
-                _window.transform.position += Vector3.up * (direction * (Mathf.Abs(windowSpeed) * Time.deltaTime));
-                Debug.Log($"The transform of the window is {_window.transform.position}");
+                Vector3 targetPosition = delta > 0 ? finalPosition.position : initialPosition.position;
+            
+                // Mover hacia la posición objetivo con velocidad fija
+                _window.transform.position = Vector3.MoveTowards(
+                    _window.transform.position,
+                    targetPosition,
+                    _windowSpeed * Time.deltaTime
+                );
+            
+                isMoving = true;
             }
-
+            else if (isMoving)
+            {
+                // Opcional: Resetear posición si se necesita volver al centro
+                // _window.transform.position = Vector3.MoveTowards(...);
+                isMoving = false;
+            }
 
             yield return null;
         }

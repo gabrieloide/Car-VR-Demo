@@ -1,0 +1,10 @@
+# ninja log v5
+24	6007	7693999299421937	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	308a9b79c67228c0
+16	6202	7693999301378407	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	70e74ef42ab7f45b
+30	6297	7693999302272437	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	c0b99cd0f42d9573
+88	6299	7693999302293940	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	68af55f7f63c9b78
+98	6343	7693999302746944	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	be8ac66cc5de6d98
+10	6358	7693999302957836	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	f67367c626a64406
+76	6467	7693999304038124	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	ebbcf5de0cf1811a
+2	6539	7693999304694489	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	5336b9d1492afb8a
+6540	7420	7693999313448694	E:/Unity/Projects/Car VR Demo/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/5h2g3s6i/obj/arm64-v8a/libgame.so	2120e512fe19b348
