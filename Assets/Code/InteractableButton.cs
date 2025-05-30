@@ -1,7 +1,7 @@
-using System;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
+
 
 public abstract class InteractableButton : MonoBehaviour
 {
@@ -10,6 +10,7 @@ public abstract class InteractableButton : MonoBehaviour
     protected bool TouchingInteractable = false;
     public abstract void OnEnterInteract(SelectEnterEventArgs selectEnterEventArgs);
     public abstract void OnExitInteract(SelectExitEventArgs selectEnterEventArgs);
+
 
     private void Start()
     {
