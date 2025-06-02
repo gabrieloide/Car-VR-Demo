@@ -16,6 +16,10 @@ public class DoorHandler : InteractableButton
 {
     private Quaternion initialPosition;
     [SerializeField] private Orientation orientation = Orientation.Down;
+    [SerializeField] private float resetSpeed = 5f;
+    [SerializeField] private bool mustReset = false;
+    [SerializeField] private float maxDistance = 10f;
+    private float distance;
 
     private void OnEnable()
     {
@@ -24,9 +28,9 @@ public class DoorHandler : InteractableButton
 
     private void Update()
     {
-        if (!TouchingInteractable)
+        if (!TouchingInteractable && mustReset)
         {
-            transform.rotation = initialPosition;
+            transform.rotation = Quaternion.Lerp(transform.rotation, initialPosition, resetSpeed * Time.deltaTime);
         }
     }
 
@@ -40,44 +44,50 @@ public class DoorHandler : InteractableButton
     {
         TouchingInteractable = false;
         StopCoroutine(UseHandler(selectEnterEventArgs.interactorObject.transform));
-        transform.rotation = initialPosition;
     }
 
+private IEnumerator UseHandler(Transform controllerPosition)
+{
+    Vector3 initialControllerPosition = controllerPosition.position;
+    
+    float rotationOffset = (orientation == Orientation.Up || orientation == Orientation.Down) 
+        ? transform.rotation.eulerAngles.y 
+        : 0f;
 
-    private IEnumerator UseHandler(Transform controllerPosition)
+    while (TouchingInteractable)
     {
-        while (TouchingInteractable)
+        Vector3 handlerToController = controllerPosition.position - initialControllerPosition;
+        
+        float movement = (orientation == Orientation.Up || orientation == Orientation.Down) 
+            ? handlerToController.y : new Vector2(handlerToController.x, handlerToController.z).magnitude;
+
+        distance = Mathf.Clamp(movement, 0, maxDistance);
+        
+        Vector3 targetRotation = RotateOrientation(distance);
+        if (orientation == Orientation.Up || orientation == Orientation.Down)
         {
-            if (TouchingInteractable == false)
-            {
-                yield break;
-            }
-
-            var handlerToController = controllerPosition.position - transform.position;
-            float distance = (orientation == Orientation.Up || orientation == Orientation.Down) 
-                ? handlerToController.y 
-                : handlerToController.magnitude;
-            
-            transform.eulerAngles = Quaternion.Euler(RotateOrientation(distance)).eulerAngles;
-
-            yield return null;
+            targetRotation.y += rotationOffset;
         }
+        
+        transform.rotation = Quaternion.Euler(targetRotation);
 
-        TouchingInteractable = false;
+        yield return null;
     }
+
+    TouchingInteractable = false;
+}
 
     private Vector3 RotateOrientation(float handlerToController)
     {
+        float multiplier = (orientation is Orientation.Up or Orientation.Down) ? 200f : 100f;
         Vector3 rotate = orientation switch
         {
-            Orientation.Up => Vector3.right,
-            Orientation.Down => Vector3.left,
-            Orientation.Right => Vector3.up,
-            Orientation.Left => Vector3.down,
+            Orientation.Up => new Vector3(-1 * handlerToController * multiplier , transform.eulerAngles.y, transform.eulerAngles.z),
+            Orientation.Down => new Vector3(handlerToController * multiplier, transform.eulerAngles.y, transform.eulerAngles.z),
+            Orientation.Right => new Vector3(transform.eulerAngles.x, handlerToController * multiplier, transform.eulerAngles.z),
+            Orientation.Left => new Vector3(transform.eulerAngles.x, -1 * handlerToController * multiplier, transform.eulerAngles.z),
             _ => Vector3.zero
         };
-
-        float multiplier = (orientation is Orientation.Up or Orientation.Down) ? 200f : 100f;
-        return rotate * handlerToController * multiplier;
+        return rotate;    
     }
 }

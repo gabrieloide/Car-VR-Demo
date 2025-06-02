@@ -12,13 +12,13 @@ public class SteeringWheel : InteractableButton
     public float smoothing = 10f;
 
     private float currentZRotation = 0f;
+    public bool isPressed => TouchingInteractable;
     
     public override void OnEnterInteract(SelectEnterEventArgs selectEnterEventArgs)
     {
         TouchingInteractable = true;
         StartCoroutine(RotateSteeringWheel());
     }
-
     public override void OnExitInteract(SelectExitEventArgs selectEnterEventArgs)
     {
         TouchingInteractable = false;
@@ -43,7 +43,6 @@ public class SteeringWheel : InteractableButton
                 angle = Mathf.Clamp(angle, -maxRotation, maxRotation);
                 currentZRotation = Mathf.Lerp(currentZRotation, angle, Time.deltaTime * smoothing);
 
-                // Aplicar rotación al volante (solo en Z)
                 transform.localEulerAngles = new Vector3(0f, 0f, currentZRotation);
             }
             yield return null;

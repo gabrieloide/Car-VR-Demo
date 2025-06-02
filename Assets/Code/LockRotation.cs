@@ -7,12 +7,14 @@ using UnityEngine.XR.Interaction.Toolkit.Interactors;
 public class LockRotation : MonoBehaviour
 {
     private Quaternion initialRotation;
-    void Start() {
+    void Start() 
+    {
         initialRotation = transform.rotation;
     }
 
-    void Update() {
-        // Bloquear rotación a eje Z
+    void Update()
+    {
+
         transform.rotation = Quaternion.Euler(initialRotation.eulerAngles.x, initialRotation.eulerAngles.y, transform.rotation.eulerAngles.z);
     }
 }

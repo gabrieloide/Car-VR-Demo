@@ -1,0 +1,66 @@
+{
+    "name": "VRInputAction",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "081e2ab7-ff09-4171-9c43-581047bd4abe",
+            "actions": [
+                {
+                    "name": "SteeringWheelLeftButtons",
+                    "type": "Value",
+                    "id": "e1852e50-707f-40ea-9294-83e96e2f692a",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "SteeringWheelRightButtons",
+                    "type": "Value",
+                    "id": "0f7c4eef-01c0-460d-821a-242edeea8401",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "9083366f-e685-46f3-bc89-32819c55b1ce",
+                    "path": "<XRController>{LeftHand}/thumbstick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SteeringWheelLeftButtons",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c27b28bd-2a5c-4aa4-b4ad-0fa3e3e71d6b",
+                    "path": "<XRController>{RightHand}/thumbstick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SteeringWheelRightButtons",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "VR",
+            "bindingGroup": "VR",
+            "devices": [
+                {
+                    "devicePath": "<XRController>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}
