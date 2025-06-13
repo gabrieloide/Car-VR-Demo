@@ -114,10 +114,10 @@ public partial class @VRInputAction: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""9083366f-e685-46f3-bc89-32819c55b1ce"",
-                    ""path"": ""<XRController>{LeftHand}/thumbstick"",
+                    ""path"": ""<OculusTouchController>{LeftHand}/thumbstick"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": "";VR"",
                     ""action"": ""SteeringWheelLeftButtons"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -125,10 +125,10 @@ public partial class @VRInputAction: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""c27b28bd-2a5c-4aa4-b4ad-0fa3e3e71d6b"",
-                    ""path"": ""<XRController>{RightHand}/thumbstick"",
+                    ""path"": ""<OculusTouchController>{RightHand}/thumbstick"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": "";VR"",
                     ""action"": ""SteeringWheelRightButtons"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false

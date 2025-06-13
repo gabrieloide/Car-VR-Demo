@@ -43,7 +43,7 @@ public class SteeringWheel : InteractableButton
                 angle = Mathf.Clamp(angle, -maxRotation, maxRotation);
                 currentZRotation = Mathf.Lerp(currentZRotation, angle, Time.deltaTime * smoothing);
 
-                transform.localEulerAngles = new Vector3(0f, 0f, currentZRotation);
+                transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, currentZRotation);
             }
             yield return null;
         }

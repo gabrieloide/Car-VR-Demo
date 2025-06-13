@@ -23,6 +23,7 @@ public abstract class InteractableButton : MonoBehaviour
         {
             GetComponent<XRGrabInteractable>().selectEntered.AddListener(OnEnterInteract);
             GetComponent<XRGrabInteractable>().selectExited.AddListener(OnExitInteract);
+            AudioSource.Destroy(GetComponent<AudioSource>());
             
         }
 
