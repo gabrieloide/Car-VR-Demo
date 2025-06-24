@@ -19,14 +19,19 @@ public class DinosaurController : MonoBehaviour
     private Image image;
     private float verticalVelocity = 0f;
     private bool isGrounded = true;
-    private bool isDucking = false;
+    public bool isDucking = false;
     private int currentFrame = 0;
     private float animationTimer = 0f;
     private GameManager gameManager;
-    
-    void Start()
+
+    private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
+    }
+
+    void Start()
+    {
+        
         image = GetComponent<Image>();
         gameManager = FindObjectOfType<GameManager>();
         
@@ -53,7 +58,7 @@ public class DinosaurController : MonoBehaviour
         //}
         
         // Agacharse
-        //isDucking = Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S);
+        isDucking = Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S);
     }
     
     void HandleMovement()
@@ -117,7 +122,7 @@ public class DinosaurController : MonoBehaviour
         }
     }
     
-    void Jump()
+    public void Jump()
     {
         verticalVelocity = jumpForce;
         isGrounded = false;

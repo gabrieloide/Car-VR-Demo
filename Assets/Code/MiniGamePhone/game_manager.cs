@@ -15,30 +15,31 @@ public class GameManager : MonoBehaviour
     public float speedIncreaseRate = 0.01f;
     public float maxSpeedMultiplier = 3f;
     
-    private float score = 0f;
-    private float highScore;
-    private bool gameOver = false;
-    private float gameStartTime;
-    private float baseSpeedMultiplier = 1f;
+    private float _score = 0f;
+    private float _highScore;
+    private float _gameStartTime;
+    private float _baseSpeedMultiplier = 1f;
+    private bool  _gameOver = false;
+    public bool hasStarted = false;
     
-    private DinosaurController dinosaur;
-    private ObstacleSpawner obstacleSpawner;
+    private DinosaurController _dinosaur;
+    private ObstacleSpawner _obstacleSpawner;
     
     void Start()
     {
-        highScore = PlayerPrefs.GetFloat("DinoHighScore", 0f);
+        _highScore = PlayerPrefs.GetFloat("DinoHighScore", 0f);
         
-        dinosaur = FindObjectOfType<DinosaurController>();
-        obstacleSpawner = FindObjectOfType<ObstacleSpawner>();
-        
+        _dinosaur = FindAnyObjectByType<DinosaurController>();
+        _obstacleSpawner = FindAnyObjectByType<ObstacleSpawner>();
+        _gameOver = true;
         if (restartButton != null)
             restartButton.onClick.AddListener(RestartGame);
+
         
-        //StartGame();
     }
     private void OnDrawGizmos()
     {
-        if (dinosaur == null)
+        if (_dinosaur == null)
             return;
         
         var dinoSize = new Vector2(0.00621f, 0.00639f);
@@ -47,7 +48,7 @@ public class GameManager : MonoBehaviour
         Gizmos.DrawWireCube(dinoPos, dinoSize);
         var obstacles = FindObjectsByType<ObstacleController>(FindObjectsSortMode.None);
         
-        if (obstacleSpawner == null)
+        if (_obstacleSpawner == null)
             return;
         
         Gizmos.color = Color.red;
@@ -64,7 +65,7 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
-        if (!gameOver)
+        if (!_gameOver)
         {
             UpdateScore();
             UpdateSpeedMultiplier();
@@ -78,12 +79,13 @@ public class GameManager : MonoBehaviour
         //}
     }
     
-    void StartGame()
+    public void StartGame()
     {
-        gameOver = false;
-        score = 0f;
-        baseSpeedMultiplier = 1f;
-        gameStartTime = Time.time;
+        _gameOver = false;
+        hasStarted = true;
+        _score = 0f;
+        _baseSpeedMultiplier = 1f;
+        _gameStartTime = Time.time;
         
         if (gameOverPanel != null)
             gameOverPanel.SetActive(false);
@@ -91,41 +93,39 @@ public class GameManager : MonoBehaviour
         UpdateUI();
     }
     
-    void UpdateScore()
+    private void UpdateScore()
     {
-        score += scoreMultiplier * Time.deltaTime;
+        _score += scoreMultiplier * Time.deltaTime;
     }
     
-    void UpdateSpeedMultiplier()
+    private void UpdateSpeedMultiplier()
     {
-        float timeElapsed = Time.time - gameStartTime;
-        baseSpeedMultiplier = Mathf.Min(1f + (timeElapsed * speedIncreaseRate), maxSpeedMultiplier);
+        var timeElapsed = Time.time - _gameStartTime;
+        _baseSpeedMultiplier = Mathf.Min(1f + (timeElapsed * speedIncreaseRate), maxSpeedMultiplier);
     }
     
-    void UpdateUI()
+    private void UpdateUI()
     {
         if (scoreText != null)
-            scoreText.text = "Score: " + Mathf.FloorToInt(score).ToString("00000");
+            scoreText.text = "Score: " + Mathf.FloorToInt(_score).ToString("00000");
         
         if (highScoreText != null)
-            highScoreText.text = "HI: " + Mathf.FloorToInt(highScore).ToString("00000");
+            highScoreText.text = "HI: " + Mathf.FloorToInt(_highScore).ToString("00000");
     }
     
     public void GameOver()
     {
-        if (gameOver) return;
+        if (_gameOver) return;
         
-        gameOver = true;
+        _gameOver = true;
         
-        // Actualizar high score
-        if (score > highScore)
+        if (_score > _highScore)
         {
-            highScore = score;
-            PlayerPrefs.SetFloat("DinoHighScore", highScore);
+            _highScore = _score;
+            PlayerPrefs.SetFloat("DinoHighScore", _highScore);
             PlayerPrefs.Save();
         }
         
-        // Mostrar panel de game over
         if (gameOverPanel != null)
             gameOverPanel.SetActive(true);
         
@@ -134,29 +134,27 @@ public class GameManager : MonoBehaviour
     
     public void RestartGame()
     {
-        // Limpiar obstáculos
-        if (obstacleSpawner != null)
-            obstacleSpawner.ClearAllObstacles();
+        if (_obstacleSpawner != null)
+            _obstacleSpawner.ClearAllObstacles();
         
-        // Resetear dinosaurio
-        if (dinosaur != null)
-            dinosaur.ResetPosition();
+        if (_dinosaur != null)
+            _dinosaur.ResetPosition();
         
         StartGame();
     }
     
     public bool IsGameOver()
     {
-        return gameOver;
+        return _gameOver;
     }
     
     public float GetSpeedMultiplier()
     {
-        return baseSpeedMultiplier;
+        return _baseSpeedMultiplier;
     }
     
     public float GetScore()
     {
-        return score;
+        return _score;
     }
 }

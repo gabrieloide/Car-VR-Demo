@@ -13,17 +13,17 @@ public class SteeringWheelRightControl : InteractableButton
     [FormerlySerializedAs("wiper")] [SerializeField]
     private GameObject wiperHandler;
 
-    private Coroutine joystickCheckRoutine;
+    private Coroutine _joystickCheckRoutine;
 
     public override void OnEnterInteract(SelectEnterEventArgs selectEnterEventArgs)
     {
-        joystickCheckRoutine = StartCoroutine(CheckJoystickDirection());
+        _joystickCheckRoutine = StartCoroutine(CheckJoystickDirection());
     }
 
     public override void OnExitInteract(SelectExitEventArgs selectEnterEventArgs)
     {
-        if (joystickCheckRoutine != null)
-            StopCoroutine(joystickCheckRoutine);
+        if (_joystickCheckRoutine != null)
+            StopCoroutine(_joystickCheckRoutine);
     }
 
     private IEnumerator CheckJoystickDirection()
