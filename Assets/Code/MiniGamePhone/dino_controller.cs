@@ -42,23 +42,8 @@ public class DinosaurController : MonoBehaviour
     {
         if (gameManager.IsGameOver()) return;
         
-        HandleInput();
         HandleMovement();
         HandleAnimation();
-    }
-
-
-
-    void HandleInput()
-    {
-        // Saltar
-        //if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && isGrounded)
-        //{
-        //    Jump();
-        //}
-        
-        // Agacharse
-        isDucking = Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S);
     }
     
     void HandleMovement()
