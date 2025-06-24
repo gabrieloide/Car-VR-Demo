@@ -2663,8 +2663,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.003
-  m_fontSizeBase: 0.003
+  m_fontSize: 0.0025
+  m_fontSizeBase: 0.0025
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0.0001
@@ -34939,6 +34939,8 @@ MonoBehaviour:
   clickSound: {fileID: 0}
   rotationSpeed: 5
   isHoldingPhone: 0
+  startScreen: {fileID: 2052457916}
+  startText: {fileID: 0}
 --- !u!33 &3057491275205940785
 MeshFilter:
   m_ObjectHideFlags: 0
