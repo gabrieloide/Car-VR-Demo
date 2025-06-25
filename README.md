@@ -1,6 +1,3 @@
-Car VR Demo
-Una breve descripción de tu proyecto. ¿Qué es? ¿Qué hace? Explica aquí el propósito principal de la demo. Por ejemplo: "Una experiencia de realidad virtual inmersiva que permite al usuario explorar el interior y exterior de un coche detallado".
-
 Tabla de Contenidos
 Requisitos Previos
 Instalación
