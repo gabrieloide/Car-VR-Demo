@@ -10,18 +10,21 @@ using CommonUsages = UnityEngine.XR.CommonUsages;
 
 public class SteeringWheelRightControl : InteractableButton
 {
-    [FormerlySerializedAs("wiper")] [SerializeField]
-    private GameObject wiperHandler;
+    [SerializeField] private WiperManager wiperManager; // Referencia al nuevo WiperManager
 
     private Coroutine _joystickCheckRoutine;
 
+    public bool IsInteracting { get; private set; } = false;
+
     public override void OnEnterInteract(SelectEnterEventArgs selectEnterEventArgs)
     {
+        IsInteracting = true;
         _joystickCheckRoutine = StartCoroutine(CheckJoystickDirection());
     }
 
-    public override void OnExitInteract(SelectExitEventArgs selectEnterEventArgs)
+    public override void OnExitInteract(SelectExitEventArgs selectExitEventArgs)
     {
+        IsInteracting = false;
         if (_joystickCheckRoutine != null)
             StopCoroutine(_joystickCheckRoutine);
     }
@@ -32,26 +35,20 @@ public class SteeringWheelRightControl : InteractableButton
         bool buttonAPressed = false;
         bool buttonBPressed = false;
         bool canPress = true;
-        var wiper = FindObjectsByType<Wiper>(FindObjectsSortMode.None);
         
 
         while (true)
         {
-            if (canPress)
+            if (canPress && IsInteracting) // Añadida verificación IsInteracting
             {
                 // Detectar botón A
                 if (rightHandDevice.TryGetFeatureValue(CommonUsages.primaryButton, out bool buttonAValue))
                 {
                     if (buttonAValue && !buttonAPressed)
                     {
-                        if (wiper[0].wiperLevel > 0 & wiper[0].wiperLevel > 0)
-                        {
-                            MoveWiper(1);
-                            wiper[0].wiperLevel--;
-                            wiper[1].wiperLevel--;
-                            canPress = false;
-                            StartCoroutine(ResetPress());
-                        }
+                        wiperManager.ChangeWiperLevel(-1);
+                        canPress = false;
+                        StartCoroutine(ResetPress());
                         buttonAPressed = true;
                     }
                     else if (!buttonAValue)
@@ -65,14 +62,9 @@ public class SteeringWheelRightControl : InteractableButton
                 {
                     if (buttonBValue && !buttonBPressed)
                     {
-                        if (wiper[0].wiperLevel <= 4 && wiper[1].wiperLevel <= 4)
-                        {
-                            MoveWiper(-1);
-                            wiper[0].wiperLevel++;
-                            wiper[1].wiperLevel++;
-                            canPress = false;
-                            StartCoroutine(ResetPress());
-                        }
+                        wiperManager.ChangeWiperLevel(1);
+                        canPress = false;
+                        StartCoroutine(ResetPress());
                         buttonBPressed = true;
                     }
                     else if (!buttonBValue)
@@ -89,13 +81,5 @@ public class SteeringWheelRightControl : InteractableButton
             yield return new WaitForSeconds(0.2f); // Delay de 200ms
             canPress = true;
         }
-    }
-
-    private void MoveWiper(float direction)
-    {
-        float currentRotation = wiperHandler.transform.rotation.eulerAngles.x;
-        wiperHandler.transform.DORotate(
-            new Vector3(currentRotation + direction * 10, wiperHandler.transform.rotation.eulerAngles.y,
-                wiperHandler.transform.rotation.eulerAngles.z), 0.5f);
     }
 }

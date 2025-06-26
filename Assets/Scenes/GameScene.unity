@@ -1060,10 +1060,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: d14b106713a74b448bcab90869f1706e, type: 3}
-  orientation: 3
   resetSpeed: 5
-  mustReset: 0
+  orientation: 3
   maxDistance: 2
+  mustReset: 0
+  resetDuration: 0.5
+  currentAppliedDistance: 0
 --- !u!65 &154983975
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2309,6 +2311,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!114 &328567625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3762,7 +3766,7 @@ MonoBehaviour:
   gameOverPanel: {fileID: 1452715965}
   restartButton: {fileID: 570355766}
   scoreMultiplier: 10
-  speedIncreaseRate: 0.01
+  speedIncreaseRate: 0.08
   maxSpeedMultiplier: 3
   hasStarted: 0
 --- !u!1 &582229177
@@ -3985,6 +3989,8 @@ GameObject:
   - component: {fileID: 633542353}
   - component: {fileID: 633542352}
   - component: {fileID: 633542351}
+  - component: {fileID: 633542354}
+  - component: {fileID: 633542355}
   m_Layer: 5
   m_Name: PreviousButton
   m_TagString: Untagged
@@ -4018,7 +4024,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 633542349}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -4093,6 +4099,99 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 633542349}
   m_CullTransparentMesh: 1
+--- !u!114 &633542354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 633542349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InteractionManager: {fileID: 0}
+  m_Colliders: []
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+--- !u!65 &633542355
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 633542349}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.015074611, y: 0.01038468, z: 0.009199827}
+  m_Center: {x: 0.000016868114, y: -1.4504316e-12, z: 0.00020108999}
 --- !u!1 &642760668
 GameObject:
   m_ObjectHideFlags: 0
@@ -4217,10 +4316,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
-  orientation: 1
   resetSpeed: 3
-  mustReset: 1
+  orientation: 1
   maxDistance: 0.4
+  mustReset: 1
+  resetDuration: 0.5
+  currentAppliedDistance: 0
 --- !u!65 &644474109
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4926,7 +5027,7 @@ MonoBehaviour:
   - 75
   - 90
   wiperLevel: 0
-  masterWiper: {fileID: 754666759}
+  masterWiper: {fileID: 0}
 --- !u!1 &787830847
 GameObject:
   m_ObjectHideFlags: 0
@@ -5251,6 +5352,8 @@ GameObject:
   - component: {fileID: 812818779}
   - component: {fileID: 812818778}
   - component: {fileID: 812818777}
+  - component: {fileID: 812818780}
+  - component: {fileID: 812818781}
   m_Layer: 5
   m_Name: NextButton
   m_TagString: Untagged
@@ -5284,7 +5387,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 812818775}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -5359,6 +5462,99 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 812818775}
   m_CullTransparentMesh: 1
+--- !u!114 &812818780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 812818775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InteractionManager: {fileID: 0}
+  m_Colliders: []
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+--- !u!65 &812818781
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 812818775}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.015074611, y: 0.01038468, z: 0.009199827}
+  m_Center: {x: 0.000016868114, y: -1.4504316e-12, z: 0.00020108999}
 --- !u!1 &813211864
 GameObject:
   m_ObjectHideFlags: 0
@@ -7703,9 +7899,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3649066edc183084ab18fc75bd597e75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playPauseButton: {fileID: 1556211012}
-  nextButton: {fileID: 812818777}
-  previousButton: {fileID: 633542351}
+  playPauseButton: {fileID: 1556211015}
+  nextButton: {fileID: 812818780}
+  previousButton: {fileID: 633542354}
   songTitleText: {fileID: 696045316}
   progressSlider: {fileID: 0}
   musicFolderPath: Music
@@ -8117,10 +8313,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 0}
-  orientation: 2
   resetSpeed: 5
-  mustReset: 1
+  orientation: 2
   maxDistance: 0.33
+  mustReset: 1
+  resetDuration: 0.5
+  currentAppliedDistance: 0
 --- !u!1 &1232761816
 GameObject:
   m_ObjectHideFlags: 0
@@ -8209,8 +8407,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c881c076314735344b3f5116adfd3e33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 1
-  gravity: -25
+  jumpForce: 0.12
+  gravity: -0.390625
   groundY: -0.0053
   runSprites:
   - {fileID: 1517606454, guid: 849e07fc9e4516246bd14882970dbfcc, type: 3}
@@ -8666,6 +8864,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &1253044736
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9211,10 +9411,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 0}
-  orientation: 3
   resetSpeed: 5
-  mustReset: 0
+  orientation: 3
   maxDistance: 10
+  mustReset: 0
+  resetDuration: 0.5
+  currentAppliedDistance: 0
 --- !u!1 &1304915337
 GameObject:
   m_ObjectHideFlags: 0
@@ -9430,16 +9632,16 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1339391520}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.9993225, w: -0.036806203}
   m_LocalPosition: {x: 0.3497, y: 2.8175, z: 0.2987}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4801859309040875978}
   - {fileID: 2164808151077485356}
   - {fileID: 7886686455191587002}
   m_Father: {fileID: 543450652552850948}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -184.219}
 --- !u!114 &1339391522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9602,10 +9804,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: d14b106713a74b448bcab90869f1706e, type: 3}
-  orientation: 3
   resetSpeed: 5
-  mustReset: 0
+  orientation: 3
   maxDistance: 0.45
+  mustReset: 0
+  resetDuration: 0.5
+  currentAppliedDistance: 0
 --- !u!65 &1339391525
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10508,6 +10712,8 @@ GameObject:
   - component: {fileID: 1556211014}
   - component: {fileID: 1556211013}
   - component: {fileID: 1556211012}
+  - component: {fileID: 1556211015}
+  - component: {fileID: 1556211016}
   m_Layer: 5
   m_Name: PauseButton
   m_TagString: Untagged
@@ -10541,7 +10747,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1556211010}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -10616,6 +10822,99 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1556211010}
   m_CullTransparentMesh: 1
+--- !u!114 &1556211015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1556211010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InteractionManager: {fileID: 0}
+  m_Colliders: []
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+--- !u!65 &1556211016
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1556211010}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.015074611, y: 0.01038468, z: 0.0062051583}
+  m_Center: {x: 0.000016868114, y: -1.8782396e-11, z: 0.0016984254}
 --- !u!1 &1558298919
 GameObject:
   m_ObjectHideFlags: 0
@@ -10709,7 +11008,7 @@ MonoBehaviour:
   maxSpawnDelay: 15
   spawnX: 0.045
   cactusY: -0.0057
-  birdY: -0.0011
+  birdY: -0.0015
 --- !u!1 &1600934738
 GameObject:
   m_ObjectHideFlags: 0
@@ -11499,7 +11798,8 @@ GameObject:
   - component: {fileID: 1889727043}
   - component: {fileID: 1889727042}
   - component: {fileID: 1889727041}
-  - component: {fileID: 1889727040}
+  - component: {fileID: 1889727044}
+  - component: {fileID: 1889727045}
   m_Layer: 5
   m_Name: CanvasScreen (1)
   m_TagString: Untagged
@@ -11507,23 +11807,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1889727040
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1889727039}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!114 &1889727041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11557,7 +11840,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 2
-  m_Camera: {fileID: 800021249}
+  m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -11590,6 +11873,42 @@ RectTransform:
   m_AnchoredPosition: {x: -1.78774, y: 3.658102}
   m_SizeDelta: {x: 0.19256, y: 0.10819}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1889727044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889727039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7951c64acb0fa62458bf30a60089fe2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 0
+  m_CheckFor2DOcclusion: 0
+  m_CheckFor3DOcclusion: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RaycastTriggerInteraction: 1
+--- !u!114 &1889727045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889727039}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &1892193979
 GameObject:
   m_ObjectHideFlags: 0
@@ -12380,7 +12699,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2052457917
 RectTransform:
   m_ObjectHideFlags: 0
@@ -33054,6 +33373,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &2840153102814025320
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -34812,14 +35133,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2387247471268851529}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
+  m_LocalRotation: {x: 0, y: 0.98139334, z: 0.19200817, w: 0}
   m_LocalPosition: {x: 0.0269, y: 0.9156, z: 0.039}
   m_LocalScale: {x: 0.012496364, y: 0.012496364, z: 0.012496364}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2141666977}
   m_Father: {fileID: 215091087}
-  m_LocalEulerAnglesHint: {x: -90, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: -22.14, y: 180, z: 0}
 --- !u!114 &3056506268460889588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35482,6 +35803,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &3135642146009619246
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -40941,6 +41264,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &3906568693029561503
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -45612,6 +45937,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &4519372720743461896
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -47508,6 +47835,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &4797053928777146979
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -48662,6 +48991,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &4969470990510632104
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -49232,6 +49563,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &5037910010894448424
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -51434,6 +51767,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: f6c77e239d1ddf84b931c9a36060c4b5, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!114 &5295317286876798113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54158,6 +54493,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &5628290369689378962
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -54884,6 +55221,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &5681242132207538461
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -60020,6 +60359,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &6422262966468855358
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -61054,6 +61395,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &6563162220651814845
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -63232,6 +63575,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &6854914096759713887
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -65249,6 +65594,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &7084013698214323191
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -65642,6 +65989,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &7109558012575995869
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -65893,6 +66242,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &7115790630762411342
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -66631,6 +66982,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &7171316997922685753
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -66999,6 +67352,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &7184897840765161193
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -67630,6 +67985,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &7258940483464664884
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -68038,6 +68395,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &7283917240298549882
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -68258,6 +68617,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &7292727989540856831
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -68898,6 +69259,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &7352112589456146387
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -70053,6 +70416,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &7508154645390806106
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -72031,6 +72396,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &7803429811017236361
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -72222,6 +72589,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &7804954887571361178
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -72573,6 +72942,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &7827203672536431857
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -73379,6 +73750,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &7924172922245415642
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -74216,6 +74589,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &7952522161933117843
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -74725,6 +75100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &7978160277991464114
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -75681,6 +76058,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &8103406848391561207
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -76716,6 +77095,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &8225721328647082270
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -78377,6 +78758,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &8425488894315651300
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -78984,6 +79367,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &8475654394020623602
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -80038,6 +80423,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &8609082090413689278
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -80847,6 +81234,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &8678997572156852651
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -82161,6 +82550,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &8825319895666848744
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -82591,6 +82982,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &8862574787048316282
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -83030,6 +83423,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &8924166263433947831
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -83975,6 +84370,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &9060985799866109120
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -84296,6 +84693,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &9087452795367306056
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -84487,6 +84886,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &9087985052525714748
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -84824,6 +85225,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &9105988480393794641
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -85312,6 +85715,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickSound: {fileID: 8300000, guid: eeeda5dce5e1d344f8e2f6195f16cb38, type: 3}
+  _audioSource: {fileID: 0}
+  TouchingInteractable: 0
 --- !u!65 &9183997125760404057
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -125,7 +125,7 @@ public class DinosaurController : MonoBehaviour
     
     public void ResetPosition()
     {
-        rectTransform.anchoredPosition = new Vector2(-300f, groundY);
+        rectTransform.anchoredPosition = new Vector2(-0.02519f, groundY);
         verticalVelocity = 0f;
         isGrounded = true;
         isDucking = false;

@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+ // Added for XRSimpleInteractable
 
 public class MusicPlayer : MonoBehaviour
 {
     [Header("Referencias de UI")]
-    public Button playPauseButton;
-    public Button nextButton;
-    public Button previousButton;
+    public UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable playPauseButton;
+    public UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable nextButton;
+    public UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable previousButton;
     public TMP_Text songTitleText; // Opcional: para mostrar el nombre de la canción
     public Slider progressSlider; // Opcional: para mostrar progreso
     
@@ -91,13 +92,13 @@ public class MusicPlayer : MonoBehaviour
     void SetupButtons()
     {
         if (playPauseButton != null)
-            playPauseButton.onClick.AddListener(TogglePlayPause);
+            playPauseButton.selectEntered.AddListener(args => TogglePlayPause()); // Changed to selectEntered
             
         if (nextButton != null)
-            nextButton.onClick.AddListener(NextSong);
+            nextButton.selectEntered.AddListener(args => NextSong()); // Changed to selectEntered
             
         if (previousButton != null)
-            previousButton.onClick.AddListener(PreviousSong);
+            previousButton.selectEntered.AddListener(args => PreviousSong()); // Changed to selectEntered
     }
     
     public void TogglePlayPause()
@@ -216,44 +217,6 @@ public class MusicPlayer : MonoBehaviour
         if (progressSlider != null && audioSource.clip != null)
         {
             progressSlider.value = audioSource.time / audioSource.clip.length;
-        }
-    }
-    
-    // Método público para obtener información del reproductor
-    public string GetCurrentSongName()
-    {
-        if (musicPlaylist.Count > 0)
-            return musicPlaylist[currentSongIndex].name;
-        return "Sin canción";
-    }
-    
-    public int GetCurrentSongIndex()
-    {
-        return currentSongIndex;
-    }
-    
-    public int GetTotalSongs()
-    {
-        return musicPlaylist.Count;
-    }
-    
-    public bool IsPlaying()
-    {
-        return isPlaying && !isPaused;
-    }
-    
-    public bool IsPaused()
-    {
-        return isPaused;
-    }
-    
-    // Método para saltar a una canción específica
-    public void PlaySongAtIndex(int index)
-    {
-        if (index >= 0 && index < musicPlaylist.Count)
-        {
-            currentSongIndex = index;
-            PlayCurrentSong();
         }
     }
 }
